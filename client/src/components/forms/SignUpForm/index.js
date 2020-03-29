@@ -1,6 +1,6 @@
 import React from 'react';
 import { Formik, Form, Field } from 'formik';
-import { createSignUpRequestAction } from '../../../actions';
+import { createSignUpRequestAction } from '../../../redux/actions';
 import { connect } from 'react-redux';
 
 const SignUpForm = props => {
