@@ -1,4 +1,4 @@
-const Chat = require('./../db/models/Chat.js');
+const Chat = require('./../models/Chat.js');
 
 module.exports.findChatById = async (req, res, next) => {
     req.chat = await Chat.findById(req.params.chatId);
