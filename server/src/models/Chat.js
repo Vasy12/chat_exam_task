@@ -20,14 +20,14 @@ const messageSchema = new Schema({
     createdAt: Schema.Types.Date,
     updatedAt: Schema.Types.Date,
 }, {
-    timestamp: true,
+    timestamps: true,
 });
 
 const chatSchema = new Schema({
     name: {
         type: Schema.Types.String,
         required: true,
-        match: /^\w{6,16}$/,
+        match: /^[a-zA-Z 0-9_-]{3,15}$/,
     },
     owner: {
         ...userRef,
@@ -40,7 +40,7 @@ const chatSchema = new Schema({
     createdAt: Schema.Types.Date,
     updatedAt: Schema.Types.Date,
 }, {
-    timestamp: true,
+    timestamps: true,
 });
 
 const Chat = mongoose.model('Chat', chatSchema);

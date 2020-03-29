@@ -13,13 +13,13 @@ chatRouter.route('/chat/:chatId/participants')
     .post(findChatById,
         joinToChat)
     .delete(findChatById,
-        leaveChat)
+        leaveChat);
 
-chatRouter.route('/chat/:chatId/message(/:messageId)?')
+chatRouter.route('/chat/:chatId/messages(/:messageId)?')
     .get(findChatById,
         getMessages)
     .post(findChatById,
-        createMessage)
+        createMessage);
 
 
 module.exports = chatRouter;

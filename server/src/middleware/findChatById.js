@@ -1,9 +1,14 @@
-const Chat = require('./../models/Chat.js');
+const Chat = require( './../models/Chat.js' );
 
-module.exports.findChatById = async (req, res, next) => {
-    req.chat = await Chat.findById(req.params.chatId);
-    if (req.chat) {
-        return next();
+module.exports.findChatById = async ( req, res, next ) => {
+  try {
+    req.chat = await Chat.findById( req.params.chatId );
+    if( req.chat ) {
+      return next();
     }
-    return res.status(404).send('Chat Not Found');
+  } catch ( e ) {
+
+  }
+
+  return res.status( 404 ).send( 'Chat Not Found' );
 };

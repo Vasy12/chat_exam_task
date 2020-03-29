@@ -26,10 +26,12 @@ module.exports.getChatByUserId = async (req, res, next) => {
     try {
         const {headers: {authorization: userId}} = req;
         const chats = await Chat.find({
-            users:
-                {
+            users: {
                     _id: userId
-                }
+                },
+        },{
+            _v:0,
+            messages:0
         })
             .populate('users', {
                 chats: 0,
