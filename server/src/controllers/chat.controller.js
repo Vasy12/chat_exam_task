@@ -117,7 +117,6 @@ module.exports.createMessage = async (req, res, next) => {
         const message = {
             authorId: userId,
             body: req.body.messageBody,
-            timestamp: Date.now(),
         };
 
         chat.messages.push(message);

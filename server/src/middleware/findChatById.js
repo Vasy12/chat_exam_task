@@ -6,9 +6,8 @@ module.exports.findChatById = async ( req, res, next ) => {
     if( req.chat ) {
       return next();
     }
+    return res.status( 404 ).send( 'Chat Not Found' );
   } catch ( e ) {
-
+    throw e
   }
-
-  return res.status( 404 ).send( 'Chat Not Found' );
 };
