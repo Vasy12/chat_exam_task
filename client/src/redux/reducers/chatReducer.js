@@ -8,7 +8,6 @@ const initialState = {
 };
 
 function chatsReducer( state = initialState, action ) {
-console.log('reducer')
   switch ( action.type ) {
 
     case ACTION_TYPES.SELECT_CHAT_ACTION:
@@ -18,9 +17,12 @@ console.log('reducer')
       };
 
     case ACTION_TYPES.LOAD_CHAT_MESSAGES_SUCCESS:
+
+      const sortedMsg = action.data.slice().sort((a, b) => a.createdAt - b.createdAt);
+      console.log(sortedMsg)
       return {
         ...state,
-        chatMessages: action.data,
+        chatMessages: sortedMsg,
       };
 
     case ACTION_TYPES.LOAD_CHAT_MESSAGES_ERROR:

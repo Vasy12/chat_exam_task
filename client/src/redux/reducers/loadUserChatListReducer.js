@@ -1,7 +1,8 @@
 import ACTION_TYPES from '../actions/actionTypes.js';
 
 const initialState = {
-  list: [],
+  myChatList: [],
+  allAvailableChats: [],
   error: null,
   isFetching: false,
 };
@@ -18,13 +19,24 @@ function loadUserChatListReducer( state = initialState, action ) {
       return {
         ...state,
         isFetching: false,
-        list: action.values
+        myChatList: action.values
       };
     case ACTION_TYPES.LOAD_CHAT_LIST_ERROR:
       return {
         ...state,
         error: action.error,
         isFetching: false,
+      };
+
+    case ACTION_TYPES.LOAD_ALL_CHATS_SUCCESS:
+      return {
+        ...state,
+        allAvailableChats: action.data
+      };
+    case ACTION_TYPES.LOAD_ALL_CHATS_ERROR:
+      return{
+        ...state,
+        error:action.error
       };
 
     default:
