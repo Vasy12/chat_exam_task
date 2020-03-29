@@ -1,5 +1,5 @@
 const path = require('path');
-const { Server } = require('http');
+const {Server} = require('http');
 const express = require('express');
 const socketIO = require('socket.io');
 const cors = require('cors');
@@ -7,7 +7,7 @@ const app = express();
 const server = new Server(app);
 const io = socketIO(server);
 const router = require('./router');
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3030;
 
 app.use(cors());
 app.use(express.json());
@@ -23,25 +23,26 @@ app.use('/api', router);
 * error handler
 * */
 app.use((err, req, res, next) => {
-  res.status(500).send(err);
+    res.status(500).send(err);
 });
 
 /*
 * WebSocket
 * */
 const chat = io.of('/chat').on('connection', function (socket) {
-  chat.on('message', msg => {
+    chat.on('message', msg => {
 
-  });
-  chat.on('disconnect', reason => {
+        chat.emit('message', msg)
+    });
+    chat.on('disconnect', reason => {
 
-  });
+    });
 });
 /*
 * start server
 * */
 server.listen(PORT, () =>
-  console.log(`Example app listening on port ${ PORT }!`),
+    console.log(`App listening on port ${PORT}!`),
 );
 
 
