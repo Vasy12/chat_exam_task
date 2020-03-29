@@ -1,12 +1,23 @@
-import React from 'react';
+import React       from 'react';
 import { connect } from 'react-redux';
+import ListItem from "../ListItem";
+import styles   from './MessageList.module.scss'
 
-const MessagesList = (props) => {
+const MessageList = ( props ) => {
+
+  const {chatMessages,currentChat}=props;
 
   return (
-    <ul>
+    <ul className={styles.container}>
       {
-        props.currentChatId ? ( null ) : ( <li>Select chat</li> )
+        currentChat
+        ? chatMessages.map((msg)=>(<ListItem key={msg._id}
+                                             name={msg.authorId}
+                                             id={msg._id}
+                                             body={msg.body}
+                                             updatedAt={msg.updatedAt}
+                                             chatItemClassName={styles.messageItem}/>))
+        : ( <li>Select chat</li> )
       }
     </ul>
   );
@@ -14,8 +25,8 @@ const MessagesList = (props) => {
 
 const mapStateToProps = state => {
 
-  return state.chats;
+  return state.chat;
 
 };
 
-export default connect()(MessagesList);
+export default connect( mapStateToProps )( MessageList );
