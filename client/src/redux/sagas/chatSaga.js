@@ -3,12 +3,16 @@ import {
   createLoadChatMessagesErrorAction,
   createLoadChatMessagesSuccessAction,
   createLoadUserChatListErrorAction,
-  createLoadUserChatListSuccessAction, createGetMessageErrorAction, createGetMessageSuccessAction
-}                      from '../actions';
+  createLoadUserChatListSuccessAction,
+  createGetMessageErrorAction,
+  createGetMessageSuccessAction,
+  createLoadAllChatSuccess, createLoadAllChatError
+} from '../actions';
 import {
+  getAllAvailableChats,
   getChatMessages,
   getUserChats
-}                      from "../../api/http/chatController";
+} from "../../api/http/chatController";
 import { emitMessage } from "../../api/ws/chatApi";
 
 export function* loadUserChatListSaga( { values } ) {
@@ -28,6 +32,16 @@ export function* loadChatMessagesSaga( chatId ) {
     yield put( createLoadChatMessagesErrorAction( e ) )
   }
 }
+
+export function* loadAllChatsSaga(  ) {
+  try {
+    const {data}  = yield getAllAvailableChats();
+    yield put( createLoadAllChatSuccess( data ) )
+  } catch ( e ) {
+    yield put( createLoadAllChatError( e ) )
+  }
+}
+
 
 /*
 
