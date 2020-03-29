@@ -70,15 +70,19 @@ module.exports.joinToChat = async (req, res, next) => {
     try {
         const {headers: {authorization: userId}, chat} = req;
 
+        console.log('joinToChatStart',userId);
+
         chat.users.addToSet(userId);
         const savedChat = await chat.save();
         if (savedChat) {
-            const chatWithOwner = await Chat.findOne(chat)
+            const chatWithOwner = await Chat.findOne(chat,{
+                messages:0
+            })
                 .populate('owner', {
-                    password: 0,
+                    login: 1,
                 })
                 .populate('users', {
-                    password: 0,
+                    login: 1,
                 });
             return res.send(chatWithOwner);
         }
@@ -143,3 +147,18 @@ module.exports.getMessages = async (req, res, next) => {
         res.status(500).send(e)
     }
 };
+
+module.exports.getAllChats=async(req,res,next)=>{
+    try {
+        const chats = await Chat.find({},{
+            _v:0,
+            messages:0
+        });
+        if (chats) {
+            return res.send(chats);
+        }
+        next(new BadRequestError());
+    } catch (e) {
+        res.send(e);
+    }
+}
