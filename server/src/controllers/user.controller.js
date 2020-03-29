@@ -23,7 +23,7 @@ module.exports.getUserByID = async ( req, res, next ) => {
   try {
     const user = await User.findById( req.params.id, {
       __v: false,
-    } );
+    } )
     if( user ) {
       return res.send( user );
     }
