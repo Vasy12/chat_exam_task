@@ -1,12 +1,28 @@
 
 .container{
-  background-color: #7769ff;
-  min-height: 100px;
-  min-width: 100px;
+  min-height: 100vh;
+  min-width: 200px;
+  border: 1px solid grey;
+  background-color: white;
 }
 
 .itemContainer{
-  min-height: 20px;
+  cursor: pointer;
+  min-height: 30px;
+  padding: 10px;
   min-width: 80px;
-  background-color: #c087ff;
+
+
+  vertical-align: middle;
+  text-align:center;
+}
+
+
+.itemContainer:hover{
+  background-color: #E7EBF0;
+
+}
+
+.selectedItemContainer{
+  background-color: #E7EBF0;
 }
