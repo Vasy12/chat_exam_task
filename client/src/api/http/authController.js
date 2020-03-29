@@ -10,3 +10,4 @@ export const loginUser = (data) => http.post('/login', data, {
   headers: { 'Content-type': 'application/json' },
 
 });
+
