@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react';
-import styles               from './ChatList.module.scss'
+import React, { useEffect, useState } from 'react';
+import styles                         from './ChatList.module.scss'
 import ListItem             from "../ListItem";
 import { connect }          from "react-redux";
 import { emitJoinRoom }     from "../../api/ws/chatApi";
+import AvailableChats       from "../AvailableChats";
 
 const ChatList = ( props ) => {
 
-  const { chatList: { list, isFetching, error } } = props;
-
+  const { chatList: { myChatList, isFetching, error } } = props;
 
   return (
     <div className={styles.container}>
@@ -15,7 +15,7 @@ const ChatList = ( props ) => {
         {
           isFetching
           ? ( <li>LOADING...</li> )
-          : list.map( ( chat ) => {
+          : myChatList.map( ( chat ) => {
             emitJoinRoom( chat._id );
             return ( <ListItem key={chat._id}
                                name={chat.name}

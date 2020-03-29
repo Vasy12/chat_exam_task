@@ -2,18 +2,26 @@ import React, { useEffect }       from 'react';
 import { connect }                from "react-redux";
 import { createSelectChatAction } from "../../redux/actions";
 import { emitJoinRoom }           from "../../api/ws/chatApi";
+import { joinUserToChatById }     from "../../api/http/chatController";
 
 const ListItem = ( props ) => {
   const {
     chatSelector,
     chatItemClassName,
-    name, body, id,chatListFlag,updatedAt
+    allChatsFlag,
+    userId,
+    name, body, id, chatListFlag, updatedAt
   } = props;
 
 
   const handleClick = ( e ) => {
-    if(chatListFlag){
+    if( chatListFlag ) {
       chatSelector( id )
+    }
+    if( allChatsFlag ) {
+      joinUserToChatById(id,userId)
+        .then( chatSelector( id ) )
+
     }
   };
 
@@ -27,7 +35,7 @@ const ListItem = ( props ) => {
       </div>
       <div>
         {
-           body
+          body
         }
       </div>
       <div>
@@ -41,7 +49,6 @@ const ListItem = ( props ) => {
 
 const mapDispatchToProps = ( dispatch ) => ( {
   chatSelector: ( id ) => {
-    console.log( 'dispatching id:', id );
     dispatch( createSelectChatAction( id ) )
   }
 } );

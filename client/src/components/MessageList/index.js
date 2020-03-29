@@ -1,8 +1,8 @@
-import React, { Component, useEffect } from 'react';
-import { connect } from 'react-redux';
-import ListItem from "../ListItem";
-import styles from './MessageList.module.scss'
-import MessageForm from "../forms/MessageForm";
+import React, { Component, useEffect }                             from 'react';
+import { connect }                                                 from 'react-redux';
+import ListItem                                                    from "../ListItem";
+import styles                                                      from './MessageList.module.scss'
+import MessageForm                                                 from "../forms/MessageForm";
 import { chatSocket }                                              from "../../api/ws";
 import { createGetMessageSuccessAction, createLoginRequestAction } from "../../redux/actions";
 
@@ -10,8 +10,7 @@ class MessageList extends Component {
 
   componentDidMount() {
     chatSocket.on( 'message', ( message ) => {
-        console.log( "WS MESSAGE", message );
-      this.props.getMessage( message )
+        this.props.getMessage( message )
       }
     )
   } ;
@@ -34,8 +33,14 @@ class MessageList extends Component {
 
     return (
       <div className={styles.messageListContainer}>
+        <div className={styles.inputWrapper}>
+          {
+            currentChat
+            ? <MessageForm/>
+            : null
+          }</div>
         <ul className={styles.container}>
-          <div>
+          <div className={styles.reverseOrder}>
             {
               currentChat
               ? chatIsSelected()
@@ -44,12 +49,7 @@ class MessageList extends Component {
           </div>
 
         </ul>
-        <div className={styles.inputWrapper}>
-          {
-            currentChat
-            ? <MessageForm/>
-            : ( null )
-          }</div>
+
       </div>
     );
 
@@ -63,8 +63,7 @@ const mapDispatchToProps = dispatch => ( {
 } );
 
 const mapStateToProps = state => {
-  console.log('chat state=',state.chat)
   return state.chat;
 };
 
-export default connect( mapStateToProps,mapDispatchToProps )( MessageList );
+export default connect( mapStateToProps, mapDispatchToProps )( MessageList );

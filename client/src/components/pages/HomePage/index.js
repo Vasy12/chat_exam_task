@@ -4,6 +4,7 @@ import MessagesList                     from "../../MessageList";
 import { connect }                      from "react-redux";
 import { createLoadUserChatListAction } from "../../../redux/actions";
 import styles                           from './HomePage.module.scss'
+import AvailableChats                   from "../../AvailableChats";
 
 const HomePage = ( props ) => {
 
@@ -13,6 +14,7 @@ const HomePage = ( props ) => {
 
   return (
     <div className={styles.container}>
+      <AvailableChats className={styles.itemContainer} />
       <ChatList chatList={props.chatList}/>
       <MessagesList/>
 
