@@ -1,25 +1,35 @@
 import ACTION_TYPES from '../actions/actionTypes.js';
-import _ from 'lodash';
+import _            from 'lodash';
 
 const initialState = {
-  chats: {},
+  chatMessages: [],
   currentChat: null,
+  error: null,
 };
 
-function chatsReducer (state = initialState, action) {
+function chatsReducer( state = initialState, action ) {
 
-  switch (action.type) {
+  switch ( action.type ) {
 
     case ACTION_TYPES.SELECT_CHAT_ACTION:
       return {
         ...state,
         currentChat: action.chatId,
       };
+
     case ACTION_TYPES.LOAD_CHAT_MESSAGES_SUCCESS:
-      const { chatId, messages } = action;
-      const newState = _.clone(state);
-      newState.chats[ chatId ].messages = messages;
-      return newState;
+      const { data } = action;
+      return {
+        ...state,
+        chatMessages: action.data,
+      };
+
+    case ACTION_TYPES.LOAD_CHAT_MESSAGES_ERROR:
+      console.log( 'LOAD MESSAGES REDUCER. ERROR.ACTION=', action );
+      return {
+        ...state,
+        error: action.error
+      };
 
     default:
       return state;

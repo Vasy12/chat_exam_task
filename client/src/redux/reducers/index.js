@@ -5,6 +5,6 @@ import loadUserChatListReducer from "./loadUserChatListReducer";
 
 export default combineReducers({
   auth: authReducer,
-  chats: chatsReducer,
+  chat: chatsReducer,
   chatList: loadUserChatListReducer,
 });

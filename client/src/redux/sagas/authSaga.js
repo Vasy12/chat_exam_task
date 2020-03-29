@@ -1,7 +1,7 @@
 import { put } from 'redux-saga/effects';
 import { createAuthErrorAction, createAuthSuccessAction } from '../actions';
 import { loginUser, signUpUser } from '../../api/http/authController.js';
-import {getUserChats} from "../../api/http/authController";
+import {getUserChats} from "../../api/http/chatController";
 
 export function * loginSaga ({ values }) {
   try {
