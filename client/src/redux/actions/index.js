@@ -53,22 +53,37 @@ export const createLoadChatMessagesErrorAction = ( error ) => ( {
 
 //WS
 /*export const createGetMessageRequestAction = ( chatId, message, from ) => ( {
-  type: ACTION_TYPES.SEND_MESSAGE_REQUEST,
-  message,
-  chatId,
-  from,
-} );*/
+ type: ACTION_TYPES.SEND_MESSAGE_REQUEST,
+ message,
+ chatId,
+ from,
+ } );*/
 
-export const createGetMessageSuccessAction = ( data ) =>  {
-  const object={
+export const createGetMessageSuccessAction = ( data ) => {
+  const object = {
     type: ACTION_TYPES.SEND_MESSAGE_SUCCESS,
     data,
   };
-  console.log(object)
+  console.log( object )
   return object
-} ;
+};
 
 export const createGetMessageErrorAction = ( error ) => ( {
   type: ACTION_TYPES.SEND_MESSAGE_ERROR,
+  error
+} );
+
+//ALL CHATS
+export const createLoadAllChatRequest = () => ( {
+  type: ACTION_TYPES.LOAD_ALL_CHATS_REQUEST
+} );
+
+export const createLoadAllChatSuccess = (data) => ( {
+  type: ACTION_TYPES.LOAD_ALL_CHATS_SUCCESS,
+  data
+} );
+
+export const createLoadAllChatError = (error) => ( {
+  type: ACTION_TYPES.LOAD_ALL_CHATS_ERROR,
   error
 } );
