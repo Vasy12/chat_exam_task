@@ -7,10 +7,8 @@ const comparePassword = require('./../middleware/comparePassword.js');
 userRouter.post('/sign_up',
     saveProfilePicture,
     (req, res, next) => {
-        console.log(req.files)
-        if (req.files) {
-            req.body.profilePicture = req.files[0].filename;
-            console.log(req.body)
+        if (req.file) {
+            req.body.profilePicture = req.file.filename;
         }
         next();
     },
