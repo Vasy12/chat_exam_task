@@ -10,7 +10,8 @@ const HomePage = lazy(() => import('./pages/HomePage'));
 function App () {
   return (
     <Suspense fallback={ <div>Loading...</div> }>
-      <PrivateRoute to={ '/sign_up' } exact path={ '/' }
+      <PrivateRoute to={ '/sign_up' }
+                    exact path={ '/' }
                     component={ HomePage }/>
       <PublicRoute to={ '/' } path={ '/sign_up' } component={ SignUpPage }/>
       <PublicRoute to={ '/' } path={ '/login' } component={ LoginPage }/>

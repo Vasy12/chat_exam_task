@@ -12,8 +12,8 @@ let LoginForm = props => {
 
   return (
     <Formik onSubmit={ handleSubmit } initialValues={ {
-      login: '',
-      password: '',
+      login: 'electricalveins',
+      password: 'Test1234',
     } }>
       {
         ({}) => (
