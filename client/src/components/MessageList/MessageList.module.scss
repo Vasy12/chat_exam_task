@@ -1,11 +1,12 @@
-.messageItem{
-  border:1px solid grey;
+.messageItem {
+  border: 1px solid grey;
   padding: 10px;
-  margin: 10px 0 ;
+  margin: 10px 0;
 }
 
-.container{
-  padding: 0 10px ;
+.messageListContainer{
+  box-sizing: border-box;
+  padding: 0 10px;
   background-color: white;
   max-width: 800px;
   width: 100%;
@@ -13,3 +14,18 @@
   border: 1px solid grey;
 }
 
+.container {
+  overflow-y: auto;
+}
+
+.inputMessage {
+  display: flex;
+  flex-direction: column;
+  min-width: 100%;
+}
+
+.inputWrapper {
+  min-width: 100%;
+  min-height: 50px;
+  background-color: white;
+}

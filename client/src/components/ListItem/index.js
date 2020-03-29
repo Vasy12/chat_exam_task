@@ -1,6 +1,7 @@
-import React                      from 'react';
+import React, { useEffect }       from 'react';
 import { connect }                from "react-redux";
 import { createSelectChatAction } from "../../redux/actions";
+import { emitJoinRoom }           from "../../api/ws/chatApi";
 
 const ListItem = ( props ) => {
   const {
@@ -9,7 +10,6 @@ const ListItem = ( props ) => {
     name, body, id,chatListFlag,updatedAt
   } = props;
 
-  console.log( 'ListItem component. Props=', props );
 
   const handleClick = ( e ) => {
     if(chatListFlag){

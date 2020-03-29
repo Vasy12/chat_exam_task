@@ -51,3 +51,24 @@ export const createLoadChatMessagesErrorAction = ( error ) => ( {
   error
 } );
 
+//WS
+/*export const createGetMessageRequestAction = ( chatId, message, from ) => ( {
+  type: ACTION_TYPES.SEND_MESSAGE_REQUEST,
+  message,
+  chatId,
+  from,
+} );*/
+
+export const createGetMessageSuccessAction = ( data ) =>  {
+  const object={
+    type: ACTION_TYPES.SEND_MESSAGE_SUCCESS,
+    data,
+  };
+  console.log(object)
+  return object
+} ;
+
+export const createGetMessageErrorAction = ( error ) => ( {
+  type: ACTION_TYPES.SEND_MESSAGE_ERROR,
+  error
+} );

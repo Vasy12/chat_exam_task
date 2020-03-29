@@ -1,14 +1,15 @@
-import { put } from 'redux-saga/effects';
+import { put }         from 'redux-saga/effects';
 import {
   createLoadChatMessagesErrorAction,
   createLoadChatMessagesSuccessAction,
   createLoadUserChatListErrorAction,
-  createLoadUserChatListSuccessAction
-}              from '../actions';
+  createLoadUserChatListSuccessAction, createGetMessageErrorAction, createGetMessageSuccessAction
+}                      from '../actions';
 import {
   getChatMessages,
   getUserChats
-}              from "../../api/http/chatController";
+}                      from "../../api/http/chatController";
+import { emitMessage } from "../../api/ws/chatApi";
 
 export function* loadUserChatListSaga( { values } ) {
   try {
@@ -27,3 +28,15 @@ export function* loadChatMessagesSaga( chatId ) {
     yield put( createLoadChatMessagesErrorAction( e ) )
   }
 }
+
+/*
+
+export function* getMessageSaga(data) {
+  try {
+    yield put( createGetMessageSuccessAction( data ) )
+  } catch ( e ) {
+    yield put( createGetMessageErrorAction( e ) )
+  }
+}
+
+*/

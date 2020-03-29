@@ -8,7 +8,7 @@ const initialState = {
 };
 
 function chatsReducer( state = initialState, action ) {
-
+console.log('reducer')
   switch ( action.type ) {
 
     case ACTION_TYPES.SELECT_CHAT_ACTION:
@@ -18,18 +18,32 @@ function chatsReducer( state = initialState, action ) {
       };
 
     case ACTION_TYPES.LOAD_CHAT_MESSAGES_SUCCESS:
-      const { data } = action;
       return {
         ...state,
         chatMessages: action.data,
       };
 
     case ACTION_TYPES.LOAD_CHAT_MESSAGES_ERROR:
-      console.log( 'LOAD MESSAGES REDUCER. ERROR.ACTION=', action );
       return {
         ...state,
         error: action.error
       };
+
+    case ACTION_TYPES.SEND_MESSAGE_SUCCESS:
+      console.log('success action',action);
+
+      const newChatMessages=_.clone(state.chatMessages);
+      newChatMessages.push(action.data);
+
+      return{
+        ...state,
+        chatMessages: newChatMessages,
+      };
+    case ACTION_TYPES.SEND_MESSAGE_ERROR:
+      return{
+        ...state,
+        error:action.error
+      }
 
     default:
       return state;

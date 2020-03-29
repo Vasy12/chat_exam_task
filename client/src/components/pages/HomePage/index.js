@@ -15,15 +15,14 @@ const HomePage = ( props ) => {
     <div className={styles.container}>
       <ChatList chatList={props.chatList}/>
       <MessagesList/>
+
     </div>
   );
-
-
 };
 
 const mapStateToProps = ( state ) => {
   // const { chatList, loadChatList, auth } = state;
-  console.log('Current State=',state)
+  console.log( 'Current State=', state );
   return state;
 };
 

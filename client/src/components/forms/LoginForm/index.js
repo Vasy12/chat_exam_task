@@ -1,29 +1,33 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React                        from 'react';
+import { connect }                  from 'react-redux';
 import { createLoginRequestAction } from '../../../redux/actions';
-import Input from '../Input';
-import { Field, Formik, Form } from 'formik';
+import Input                        from '../Input';
+import { Field, Formik, Form }      from 'formik';
 
 let LoginForm = props => {
 
-  const handleSubmit = (values) => {
-    props.login(values);
+  const handleSubmit = ( values ) => {
+    props.login( values );
   };
 
   return (
-    <Formik onSubmit={ handleSubmit } initialValues={ {
-      login: 'electricalveins',
-      password: 'Test1234',
-    } }>
+    <Formik onSubmit={handleSubmit}
+            initialValues={{
+              login: 'electricalveins',
+              password: 'Test1234',
+            }}>
       {
-        ({}) => (
+        ( {} ) => (
           <Form>
-            <Field name={ 'login' } type={ 'text' } placeholder={ 'login' }/>
+            <Field name={'login'}
+                   type={'text'}
+                   placeholder={'login'}/>
             <br/>
-            <Field name={ 'password' } type={ 'password' }
-                   placeholder={ 'password' }/>
+            <Field name={'password'}
+                   type={'password'}
+                   placeholder={'password'}/>
             <br/>
-            <button type={ 'submit' }>login</button>
+            <button type={'submit'}>login</button>
           </Form>
         )
       }
@@ -32,7 +36,7 @@ let LoginForm = props => {
 };
 
 const mapDispatchToProps = dispatch => ( {
-  login: (data) => dispatch(createLoginRequestAction(data)),
+  login: ( data ) => dispatch( createLoginRequestAction( data ) ),
 } );
 
-export default connect(null, mapDispatchToProps)(LoginForm);
+export default connect( null, mapDispatchToProps )( LoginForm );
