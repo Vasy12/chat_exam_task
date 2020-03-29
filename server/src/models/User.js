@@ -37,7 +37,8 @@ userSchema.pre('save', function hashPassword (next) {
  * */
 /*userSchema.methods.comparePassword = function (plainPassword) {
  return bcrypt.compare(plainPassword, this.password, 10);
- };*/
+ };
+ */
 userSchema.method('comparePassword', function (plainPassword) {
   return bcrypt.compare(plainPassword, this.password);
 });
