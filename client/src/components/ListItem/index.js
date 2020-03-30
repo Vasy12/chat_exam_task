@@ -1,14 +1,14 @@
-import React, { useEffect }                                          from 'react';
-import { connect }                                                   from "react-redux";
+import React, { useEffect }   from 'react';
+import { connect }            from "react-redux";
 import {
   createDeleteNotificationAction,
   createJoinUserToChatRequestAction,
   createSelectChatAction
-} from "../../redux/actions";
-import { emitJoinRoom }                                              from "../../api/ws/chatApi";
-import { joinUserToChatById }                                        from "../../api/http/chatController";
-import classNames         from 'classnames';
-import { LIST_ITEM_TYPE } from '../../constants'
+}                             from "../../redux/actions";
+import { emitJoinRoom }       from "../../api/ws/chatApi";
+import { joinUserToChatById } from "../../api/http/chatController";
+import classNames             from 'classnames';
+import { LIST_ITEM_TYPE }     from '../../constants'
 
 const ListItem = ( props ) => {
   const {
@@ -17,7 +17,7 @@ const ListItem = ( props ) => {
     selectedChatStyles,
     userId,
     type,
-    name, body, id,  updatedAt
+    name, body, id, updatedAt
   } = props;
 
   const computedStyles = classNames( chatItemClassName, {
@@ -25,17 +25,24 @@ const ListItem = ( props ) => {
   } );
 
   const handleClick = ( e ) => {
-    if(type=== LIST_ITEM_TYPE.MY_CHATS ) {
+    if( type === LIST_ITEM_TYPE.MY_CHATS ) {
       props.chatSelector( id )
     }
-    if(type=== LIST_ITEM_TYPE.ALL_CHATS ) {
+    if( type === LIST_ITEM_TYPE.ALL_CHATS ) {
       props.joinUserToChat( id, userId );
       props.chatSelector( id )
     }
-    if(type===LIST_ITEM_TYPE.NOTIFICATION){
-      props.deleteNotification(id)
+    if( type === LIST_ITEM_TYPE.NOTIFICATION ) {
+      props.deleteNotification( id )
     }
   };
+
+  useEffect( () => {
+    if( type === LIST_ITEM_TYPE.NOTIFICATION && id) {
+      setTimeout( () => {props.deleteNotification( id )}, 3000 )
+    }
+  }, [] );
+
 
   return (
     <li className={computedStyles}
@@ -64,8 +71,8 @@ const mapStateToProps = ( state ) => {
 }
 
 const mapDispatchToProps = ( dispatch ) => ( {
-  deleteNotification:(id)=>{
-    dispatch( createDeleteNotificationAction(id))
+  deleteNotification: ( id ) => {
+    dispatch( createDeleteNotificationAction( id ) )
   },
   joinUserToChat: ( chatId, userId ) => {
     dispatch( createJoinUserToChatRequestAction( chatId, userId ) )

@@ -5,7 +5,6 @@ import { LIST_ITEM_TYPE } from '../../constants'
 
 const NotificationList = ( props ) => {
   const { notifications } = props;
-  console.log(notifications)
   return (
       <ul className={styles.container}>
       {
