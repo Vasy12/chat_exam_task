@@ -9,9 +9,13 @@ import {
   createLoadAllChatSuccess,
   createLoadAllChatError,
   createLeaveChatSuccessAction,
-  createLeaveChatErrorAction, createJoinUserToChatErrorAction, createJoinUserToChatSuccessAction
-}                      from '../actions';
+  createLeaveChatErrorAction,
+  createJoinUserToChatErrorAction,
+  createJoinUserToChatSuccessAction,
+  createChatCreationSuccessAction, createChatCreationErrorAction
+} from '../actions';
 import {
+  createChat,
   getAllAvailableChats,
   getChatMessages,
   getUserChats, joinUserToChatById, leaveChatById
@@ -60,8 +64,18 @@ export function* joinChatSaga( chatId, userId ) {
     const { data } = yield joinUserToChatById( chatId, userId );
     yield put( createJoinUserToChatSuccessAction( data ) )
   } catch ( e ) {
-    createJoinUserToChatErrorAction( e )
+    yield put( createJoinUserToChatErrorAction( e ))
   }
+}
+
+export function* createChatSaga(chatName,userId) {
+  try {
+    const { data } = yield createChat( chatName, userId );
+    yield put( createChatCreationSuccessAction(data))
+  }catch ( e ) {
+    yield put( createChatCreationErrorAction( e ))
+  }
+
 }
 
 /*

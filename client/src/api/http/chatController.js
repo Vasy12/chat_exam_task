@@ -36,3 +36,9 @@ export const leaveChatById = ( chatId, userId ) => http.delete( `/chat/${chatId}
       'Authorization': userId,
     },
   } );
+
+export const createChat = ( {chatName,userId} ) => http.post( '/chat', { name: chatName }, {
+  headers: {
+    'Authorization': userId,
+  },
+} )

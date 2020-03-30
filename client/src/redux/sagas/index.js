@@ -5,7 +5,7 @@ import {
   loadChatMessagesSaga,
   loadUserChatListSaga,
   getMessageSaga,
-  loadAllChatsSaga, leaveChatSaga, joinChatSaga
+  loadAllChatsSaga, leaveChatSaga, joinChatSaga, createChatSaga
 } from "./chatSaga";
 
 export default function* () {
@@ -16,5 +16,6 @@ export default function* () {
   //yield takeLatest(ACTION_TYPES.SEND_MESSAGE_REQUEST, getMessageSaga);
   yield takeLatest( ACTION_TYPES.LOAD_ALL_CHATS_REQUEST, loadAllChatsSaga );
   yield takeLatest( ACTION_TYPES.LEAVE_CHAT_REQUEST, leaveChatSaga );
-  yield takeLatest(ACTION_TYPES.JOIN_USER_TO_CHAT_REQUEST,joinChatSaga)
+  yield takeLatest(ACTION_TYPES.JOIN_USER_TO_CHAT_REQUEST,joinChatSaga);
+  yield takeLatest(ACTION_TYPES.CREATE_CHAT_REQUEST,createChatSaga);
 }

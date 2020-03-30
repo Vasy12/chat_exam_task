@@ -2,8 +2,9 @@ import React, { useState }          from 'react';
 import { connect }                  from "react-redux";
 import { createLoadAllChatRequest } from "../../redux/actions";
 import ListItem                     from "../ListItem";
-import styles             from "../ChatList/ChatList.module.scss";
-import { LIST_ITEM_TYPE } from "../../constants";
+import styles                       from "../ChatList/ChatList.module.scss";
+import { LIST_ITEM_TYPE }           from "../../constants";
+import CreateChatForm               from "../forms/CreateChatForm";
 
 const AvailableChats = ( props ) => {
 
@@ -16,6 +17,8 @@ const AvailableChats = ( props ) => {
 
   return (
     <div>
+      <div className={props.className}> Create chat: </div>
+      <CreateChatForm/>
       <div className={props.className} onClick={handleClick}>
         View All Chats:
       </div>

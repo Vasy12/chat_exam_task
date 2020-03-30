@@ -11,6 +11,13 @@ const initialState = {
 function chatListReducer( state = initialState, action ) {
 
   switch ( action.type ) {
+    case ACTION_TYPES.CREATE_CHAT_SUCCESS:
+      console.log('reducer.action',action);
+      return {
+        ...state,
+        myChatList: [ ...state.myChatList, action.data ],
+        allAvailableChats: [ ...state.allAvailableChats, action.data ],
+      };
     case ACTION_TYPES.LOAD_CHAT_LIST_REQUEST:
       return {
         ...state,
@@ -43,7 +50,7 @@ function chatListReducer( state = initialState, action ) {
     case ACTION_TYPES.JOIN_USER_TO_CHAT_SUCCESS:
       return {
         ...state,
-        myChatList:[...state.myChatList,action.data]
+        myChatList: [ ...state.myChatList, action.data ]
       };
 
     case ACTION_TYPES.JOIN_USER_TO_CHAT_ERROR:

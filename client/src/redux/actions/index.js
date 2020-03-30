@@ -133,3 +133,20 @@ export const createDeleteNotificationAction = ( messageId ) => ( {
   type: ACTION_TYPES.DELETE_NOTIFICATION_ACTION,
   messageId,
 } );
+
+//CREATE CHAT
+export const createChatCreationRequestAction = ( chatName, userId ) => ( {
+  type: ACTION_TYPES.CREATE_CHAT_REQUEST,
+  chatName,
+  userId
+} );
+
+export const createChatCreationSuccessAction = ( data ) => ( {
+  type: ACTION_TYPES.CREATE_CHAT_SUCCESS,
+  data
+} );
+
+export const createChatCreationErrorAction = ( error ) => ( {
+  type: ACTION_TYPES.CREATE_CHAT_ERROR,
+  error
+} );
