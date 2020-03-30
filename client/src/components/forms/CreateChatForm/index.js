@@ -12,7 +12,7 @@ const MessageForm = ( props ) => {
   const { userId } = props;
 
   const messageSchema = Yup.object().shape( {
-    name: Yup.string().min( 4, 'Empty name' ).required( 'EnterMessage' )
+    name: Yup.string().min( 4, 'Chat name must contain at least 4 symbols' )
   } );
 
   const handleSubmit = ( { name }, formikBag ) => {
@@ -27,12 +27,17 @@ const MessageForm = ( props ) => {
               name: ''
             }}>
       {
-        ( {} ) => (
+        ( { errors, touched } ) => (
           <Form>
             <Field name={'name'}
                    type={'text'}
                    placeholder={'Type Chat Name Here:'}/>
-
+            {
+              errors.name && touched.name
+              ? ( <div>{errors.name}</div> )
+              : null
+            }
+            <br/>
             <button type={'submit'}>Send</button>
           </Form>
         )
