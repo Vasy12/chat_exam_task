@@ -24,6 +24,7 @@ const AvailableChats = ( props ) => {
                                                        allChatsFlag={true}
                                                        name={item.name}
                                                        userId={userId}
+                                                       selectedChatStyles={styles.selectedItemContainer}
                                                        chatItemClassName={styles.itemContainer}/> ) )
       }
       </ul>

@@ -1,32 +1,36 @@
-import React, { useEffect }       from 'react';
-import { connect }                from "react-redux";
-import { createSelectChatAction } from "../../redux/actions";
-import { emitJoinRoom }           from "../../api/ws/chatApi";
-import { joinUserToChatById }     from "../../api/http/chatController";
+import React, { useEffect }                                          from 'react';
+import { connect }                                                   from "react-redux";
+import { createJoinUserToChatRequestAction, createSelectChatAction } from "../../redux/actions";
+import { emitJoinRoom }                                              from "../../api/ws/chatApi";
+import { joinUserToChatById }                                        from "../../api/http/chatController";
+import classNames                                                    from 'classnames';
 
 const ListItem = ( props ) => {
   const {
-    chatSelector,
+    currentChat,
     chatItemClassName,
+    selectedChatStyles,
     allChatsFlag,
     userId,
     name, body, id, chatListFlag, updatedAt
   } = props;
 
+  const computedStyles = classNames( chatItemClassName, {
+    [ selectedChatStyles ]: currentChat===id,
+  } );
 
   const handleClick = ( e ) => {
     if( chatListFlag ) {
-      chatSelector( id )
+      props.chatSelector( id )
     }
     if( allChatsFlag ) {
-      joinUserToChatById(id,userId)
-        .then( chatSelector( id ) )
-
+      props.joinUserToChat( id, userId );
+      props.chatSelector( id )
     }
   };
 
   return (
-    <li className={chatItemClassName}
+    <li className={computedStyles}
         onClick={handleClick}>
       <div>
         {
@@ -47,10 +51,17 @@ const ListItem = ( props ) => {
   );
 };
 
+const mapStateToProps = ( state ) => {
+  return state.chat
+}
+
 const mapDispatchToProps = ( dispatch ) => ( {
+  joinUserToChat: ( chatId, userId ) => {
+    dispatch( createJoinUserToChatRequestAction( chatId, userId ) )
+  },
   chatSelector: ( id ) => {
     dispatch( createSelectChatAction( id ) )
   }
 } );
 
-export default connect( null, mapDispatchToProps )( ListItem );
+export default connect( mapStateToProps, mapDispatchToProps )( ListItem );

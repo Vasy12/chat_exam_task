@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import styles                         from './ChatList.module.scss'
-import ListItem             from "../ListItem";
-import { connect }          from "react-redux";
-import { emitJoinRoom }     from "../../api/ws/chatApi";
-import AvailableChats       from "../AvailableChats";
+import ListItem                       from "../ListItem";
+import { connect }                    from "react-redux";
+import { emitJoinRoom }               from "../../api/ws/chatApi";
+import AvailableChats                 from "../AvailableChats";
+
 
 const ChatList = ( props ) => {
 
@@ -19,6 +20,7 @@ const ChatList = ( props ) => {
             emitJoinRoom( chat._id );
             return ( <ListItem key={chat._id}
                                name={chat.name}
+                               selectedChatStyles={styles.selectedItemContainer}
                                id={chat._id}
                                chatListFlag={true}
                                chatItemClassName={styles.itemContainer}/> )
