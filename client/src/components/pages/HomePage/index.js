@@ -25,7 +25,7 @@ const HomePage = ( props ) => {
       <AvailableChats className={styles.itemContainer}/>
       <ChatList chatList={props.chatList}/>
       <MessagesList/>
-      <NotificationList notifications={props.notifications} />
+      <NotificationList notifications={props.chat.notifications} />
     </div>
   );
 };
