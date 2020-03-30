@@ -1,31 +1,39 @@
 import React, { useEffect }                                          from 'react';
 import { connect }                                                   from "react-redux";
-import { createJoinUserToChatRequestAction, createSelectChatAction } from "../../redux/actions";
+import {
+  createDeleteNotificationAction,
+  createJoinUserToChatRequestAction,
+  createSelectChatAction
+} from "../../redux/actions";
 import { emitJoinRoom }                                              from "../../api/ws/chatApi";
 import { joinUserToChatById }                                        from "../../api/http/chatController";
-import classNames                                                    from 'classnames';
+import classNames         from 'classnames';
+import { LIST_ITEM_TYPE } from '../../constants'
 
 const ListItem = ( props ) => {
   const {
     currentChat,
     chatItemClassName,
     selectedChatStyles,
-    allChatsFlag,
     userId,
-    name, body, id, chatListFlag, updatedAt
+    type,
+    name, body, id,  updatedAt
   } = props;
 
   const computedStyles = classNames( chatItemClassName, {
-    [ selectedChatStyles ]: currentChat===id,
+    [ selectedChatStyles ]: currentChat === id,
   } );
 
   const handleClick = ( e ) => {
-    if( chatListFlag ) {
+    if(type=== LIST_ITEM_TYPE.MY_CHATS ) {
       props.chatSelector( id )
     }
-    if( allChatsFlag ) {
+    if(type=== LIST_ITEM_TYPE.ALL_CHATS ) {
       props.joinUserToChat( id, userId );
       props.chatSelector( id )
+    }
+    if(type===LIST_ITEM_TYPE.NOTIFICATION){
+      props.deleteNotification(id)
     }
   };
 
@@ -56,6 +64,9 @@ const mapStateToProps = ( state ) => {
 }
 
 const mapDispatchToProps = ( dispatch ) => ( {
+  deleteNotification:(id)=>{
+    dispatch( createDeleteNotificationAction(id))
+  },
   joinUserToChat: ( chatId, userId ) => {
     dispatch( createJoinUserToChatRequestAction( chatId, userId ) )
   },

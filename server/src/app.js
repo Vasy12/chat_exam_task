@@ -49,14 +49,14 @@ io.on( 'connection', function ( socket ) {
       chat.messages.push( message );
       const savedChat = await chat.save();
 
-
       const lastIndex = savedChat.messages.length;
       const lastMessage = savedChat.messages[ lastIndex - 1 ];
 
       console.log( lastMessage );
 
       if( savedChat ) {
-        io.in( chatId ).emit( 'message', lastMessage )
+        io.in( chatId ).emit( 'message', lastMessage );
+        socket.to(chatId).emit( 'new-message', lastMessage,chatId );
       }
     } catch ( e ) {
       throw e

@@ -2,7 +2,8 @@ import React, { useState }          from 'react';
 import { connect }                  from "react-redux";
 import { createLoadAllChatRequest } from "../../redux/actions";
 import ListItem                     from "../ListItem";
-import styles                       from "../ChatList/ChatList.module.scss";
+import styles             from "../ChatList/ChatList.module.scss";
+import { LIST_ITEM_TYPE } from "../../constants";
 
 const AvailableChats = ( props ) => {
 
@@ -21,7 +22,7 @@ const AvailableChats = ( props ) => {
       <ul>{
         allAvailableChats.map( ( item ) => ( <ListItem key={item._id}
                                                        id={item._id}
-                                                       allChatsFlag={true}
+                                                       type={LIST_ITEM_TYPE.ALL_CHATS}
                                                        name={item.name}
                                                        userId={userId}
                                                        selectedChatStyles={styles.selectedItemContainer}

@@ -3,7 +3,8 @@ import styles                         from './ChatList.module.scss'
 import ListItem                       from "../ListItem";
 import { connect }                    from "react-redux";
 import { emitJoinRoom }               from "../../api/ws/chatApi";
-import AvailableChats                 from "../AvailableChats";
+import AvailableChats     from "../AvailableChats";
+import { LIST_ITEM_TYPE } from "../../constants";
 
 
 const ChatList = ( props ) => {
@@ -22,7 +23,7 @@ const ChatList = ( props ) => {
                                name={chat.name}
                                selectedChatStyles={styles.selectedItemContainer}
                                id={chat._id}
-                               chatListFlag={true}
+                               type={LIST_ITEM_TYPE.MY_CHATS}
                                chatItemClassName={styles.itemContainer}/> )
           } )
         }

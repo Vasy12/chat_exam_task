@@ -1,11 +1,11 @@
 import ACTION_TYPES from '../actions/actionTypes.js';
 
 const initialState = {
-  user: {
+  user: /*{
     id: "5e806409ae86a315556d6983",
     login: "electricalveins",
     profilePicture: "http://localhost:3000/profilePicture/"
-  }, //null
+  },*/ null,
   error: null,
   isFetching: false,
 };
@@ -13,6 +13,10 @@ const initialState = {
 function authReducer( state = initialState, action ) {
   switch ( action.type ) {
     case ACTION_TYPES.SIGN_UP_REQUEST:
+      return {
+        ...state,
+        isFetching: true,
+      };
     case ACTION_TYPES.LOGIN_REQUEST:
       return {
         ...state,

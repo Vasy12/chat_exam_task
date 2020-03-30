@@ -120,3 +120,16 @@ export const createJoinUserToChatErrorAction = ( error ) => ( {
   type: ACTION_TYPES.JOIN_USER_TO_CHAT_ERROR,
   error
 } );
+
+//GET notif
+export const createGetNotificationSuccessAction = ( message, chatId ) => ( {
+  type: ACTION_TYPES.GET_NOTIFICATION_SUCCESS,
+  message,
+  chatId
+} );
+
+//delete notif
+export const createDeleteNotificationAction = ( messageId ) => ( {
+  type: ACTION_TYPES.DELETE_NOTIFICATION_ACTION,
+  messageId,
+} );

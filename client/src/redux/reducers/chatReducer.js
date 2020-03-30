@@ -7,6 +7,8 @@ const initialState = {
   error: null,
 };
 
+//ОПРЕДЕЛЯТЬ ПО chatId пушить или нет notifications
+
 function chatReducer( state = initialState, action ) {
   switch ( action.type ) {
 

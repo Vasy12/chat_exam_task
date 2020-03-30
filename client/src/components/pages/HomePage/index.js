@@ -1,23 +1,31 @@
 import React, { Component, useEffect }  from 'react';
 import ChatList                         from "../../ChatList";
 import MessagesList                     from "../../MessageList";
-import { connect }                      from "react-redux";
-import { createLoadUserChatListAction } from "../../../redux/actions";
+import AvailableChats   from "../../AvailableChats";
+import NotificationList from "../../NotificationList";
+import { connect }      from "react-redux";
+import {
+  createGetNotificationSuccessAction,
+  createLoadUserChatListAction
+} from "../../../redux/actions";
 import styles                           from './HomePage.module.scss'
-import AvailableChats                   from "../../AvailableChats";
+import { chatSocket }                   from "../../../api/ws";
 
 const HomePage = ( props ) => {
 
   useEffect( () => {
     props.loadChatList( props.auth.user.id );
+    chatSocket.on( 'new-message', ( message, chatId ) => {
+      props.getNotification(message, chatId)
+    } )
   }, [] );
 
   return (
     <div className={styles.container}>
-      <AvailableChats className={styles.itemContainer} />
+      <AvailableChats className={styles.itemContainer}/>
       <ChatList chatList={props.chatList}/>
       <MessagesList/>
-
+      <NotificationList notifications={props.notifications} />
     </div>
   );
 };
@@ -29,6 +37,9 @@ const mapStateToProps = ( state ) => {
 };
 
 const mapDispatchToProps = dispatch => ( {
+  getNotification:(message, chatId)=>{
+    dispatch( createGetNotificationSuccessAction(message, chatId))
+  },
   loadChatList: ( data ) => {
     dispatch( createLoadUserChatListAction( data ) )
   },
