@@ -6,57 +6,53 @@ import MessageForm                                                 from "../form
 import { chatSocket }                                              from "../../api/ws";
 import { createGetMessageSuccessAction, createLoginRequestAction } from "../../redux/actions";
 
-class MessageList extends Component {
+const MessageList = ( props ) => {
 
-  componentDidMount() {
+  useEffect( () => {
     chatSocket.on( 'message', ( message ) => {
-        this.props.getMessage( message )
-      }
-    )
-  } ;
+      props.getMessage( message )
+    } )
+  } );
 
-  render() {
-    const { chatMessages, currentChat } = this.props;
 
-    const chatIsSelected = () => {
-      return chatMessages.map( ( msg ) => ( <ListItem key={msg._id}
-                                                      name={msg.authorId}
-                                                      id={msg._id}
-                                                      body={msg.body}
-                                                      updatedAt={msg.updatedAt}
-                                                      chatItemClassName={styles.messageItem}/> ) )
-    };
+  const { chatMessages, currentChat } = props;
 
-    const selectChat = () => {
-      return <li>Select chat</li>
-    };
+  const chatIsSelected = () => {
+    return chatMessages.map( ( msg ) => ( <ListItem key={msg._id}
+                                                    name={msg.authorId}
+                                                    id={msg._id}
+                                                    body={msg.body}
+                                                    updatedAt={msg.updatedAt}
+                                                    chatItemClassName={styles.messageItem}/> ) )
+  };
 
-    return (
-      <div className={styles.messageListContainer}>
-        <div className={styles.inputWrapper}>
+  const selectChat = () => {
+    return <li>Select chat</li>
+  };
+
+  return (
+    <div className={styles.messageListContainer}>
+      <div className={styles.inputWrapper}>
+        {
+          currentChat
+          ? <MessageForm/>
+          : null
+        }</div>
+      <ul className={styles.container}>
+        <div className={styles.reverseOrder}>
           {
             currentChat
-            ? <MessageForm/>
-            : null
-          }</div>
-        <ul className={styles.container}>
-          <div className={styles.reverseOrder}>
-            {
-              currentChat
-              ? chatIsSelected()
-              : selectChat()
-            }
-          </div>
+            ? chatIsSelected()
+            : selectChat()
+          }
+        </div>
 
-        </ul>
+      </ul>
 
-      </div>
-    );
+    </div>
+  );
+}
 
-  }
-
-
-};
 
 const mapDispatchToProps = dispatch => ( {
   getMessage: ( data ) => dispatch( createGetMessageSuccessAction( data ) ),
