@@ -6,12 +6,15 @@ import {
   createLoadUserChatListSuccessAction,
   createGetMessageErrorAction,
   createGetMessageSuccessAction,
-  createLoadAllChatSuccess, createLoadAllChatError
-} from '../actions';
+  createLoadAllChatSuccess,
+  createLoadAllChatError,
+  createLeaveChatSuccessAction,
+  createLeaveChatErrorAction, createJoinUserToChatErrorAction, createJoinUserToChatSuccessAction
+}                      from '../actions';
 import {
   getAllAvailableChats,
   getChatMessages,
-  getUserChats
+  getUserChats, joinUserToChatById, leaveChatById
 } from "../../api/http/chatController";
 import { emitMessage } from "../../api/ws/chatApi";
 
@@ -33,9 +36,9 @@ export function* loadChatMessagesSaga( chatId ) {
   }
 }
 
-export function* loadAllChatsSaga(  ) {
+export function* loadAllChatsSaga() {
   try {
-    const {data}  = yield getAllAvailableChats();
+    const { data } = yield getAllAvailableChats();
     yield put( createLoadAllChatSuccess( data ) )
   } catch ( e ) {
     yield put( createLoadAllChatError( e ) )
@@ -43,14 +46,32 @@ export function* loadAllChatsSaga(  ) {
 }
 
 
-/*
-
-export function* getMessageSaga(data) {
+export function* leaveChatSaga( { currentChat, userId } ) {
   try {
-    yield put( createGetMessageSuccessAction( data ) )
+    const { data } = yield leaveChatById( currentChat, userId );
+    yield put( createLeaveChatSuccessAction( data ) )
   } catch ( e ) {
-    yield put( createGetMessageErrorAction( e ) )
+    yield put( createLeaveChatErrorAction( e ) )
   }
 }
 
-*/
+export function* joinChatSaga( chatId, userId ) {
+  try {
+    const { data } = yield joinUserToChatById( chatId, userId );
+    yield put( createJoinUserToChatSuccessAction( data ) )
+  } catch ( e ) {
+    createJoinUserToChatErrorAction( e )
+  }
+}
+
+/*
+
+ export function* getMessageSaga(data) {
+ try {
+ yield put( createGetMessageSuccessAction( data ) )
+ } catch ( e ) {
+ yield put( createGetMessageErrorAction( e ) )
+ }
+ }
+
+ */

@@ -22,12 +22,13 @@ export const getAllAvailableChats = () => http.get( '/chats', {
   }
 } );
 
-export const joinUserToChatById = ( chatId, userId ) =>
+export const joinUserToChatById = ( { chatId, userId } ) =>
   http.post( `/chat/${chatId}/participants`, null, {
     headers: {
       'Authorization': userId,
     },
   } );
+
 
 export const leaveChatById = ( chatId, userId ) => http.delete( `/chat/${chatId}/participants`,
   {

@@ -64,7 +64,6 @@ export const createGetMessageSuccessAction = ( data ) => {
     type: ACTION_TYPES.SEND_MESSAGE_SUCCESS,
     data,
   };
-  console.log( object )
   return object
 };
 
@@ -78,12 +77,46 @@ export const createLoadAllChatRequest = () => ( {
   type: ACTION_TYPES.LOAD_ALL_CHATS_REQUEST
 } );
 
-export const createLoadAllChatSuccess = (data) => ( {
+export const createLoadAllChatSuccess = ( data ) => ( {
   type: ACTION_TYPES.LOAD_ALL_CHATS_SUCCESS,
   data
 } );
 
-export const createLoadAllChatError = (error) => ( {
+export const createLoadAllChatError = ( error ) => ( {
   type: ACTION_TYPES.LOAD_ALL_CHATS_ERROR,
+  error
+} );
+
+//leave chat action
+export const createLeaveChatRequestAction = ( currentChat, userId ) => ( {
+  type: ACTION_TYPES.LEAVE_CHAT_REQUEST,
+  currentChat,
+  userId
+} );
+
+export const createLeaveChatSuccessAction = ( data ) => ( {
+  type: ACTION_TYPES.LEAVE_CHAT_SUCCESS,
+  data
+} );
+
+export const createLeaveChatErrorAction = ( error ) => ( {
+  type: ACTION_TYPES.LEAVE_CHAT_ERROR,
+  error
+} );
+
+//join user to chat
+export const createJoinUserToChatRequestAction = ( chatId, userId ) => ( {
+  type: ACTION_TYPES.JOIN_USER_TO_CHAT_REQUEST,
+  chatId,
+  userId
+} );
+
+export const createJoinUserToChatSuccessAction = ( data ) => ( {
+  type: ACTION_TYPES.JOIN_USER_TO_CHAT_SUCCESS,
+  data
+} );
+
+export const createJoinUserToChatErrorAction = ( error ) => ( {
+  type: ACTION_TYPES.JOIN_USER_TO_CHAT_ERROR,
   error
 } );

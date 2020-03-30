@@ -7,7 +7,7 @@ const initialState = {
   error: null,
 };
 
-function chatsReducer( state = initialState, action ) {
+function chatReducer( state = initialState, action ) {
   switch ( action.type ) {
 
     case ACTION_TYPES.SELECT_CHAT_ACTION:
@@ -17,12 +17,9 @@ function chatsReducer( state = initialState, action ) {
       };
 
     case ACTION_TYPES.LOAD_CHAT_MESSAGES_SUCCESS:
-
-      const sortedMsg = action.data.slice().sort((a, b) => a.createdAt - b.createdAt);
-      console.log(sortedMsg)
       return {
         ...state,
-        chatMessages: sortedMsg,
+        chatMessages: action.data,
       };
 
     case ACTION_TYPES.LOAD_CHAT_MESSAGES_ERROR:
@@ -32,20 +29,24 @@ function chatsReducer( state = initialState, action ) {
       };
 
     case ACTION_TYPES.SEND_MESSAGE_SUCCESS:
-      console.log('success action',action);
-
-      const newChatMessages=_.clone(state.chatMessages);
-      newChatMessages.push(action.data);
-
-      return{
-        ...state,
-        chatMessages: newChatMessages,
-      };
-    case ACTION_TYPES.SEND_MESSAGE_ERROR:
-      return{
-        ...state,
-        error:action.error
+      const newMessage = action.data;
+      const newChatMessages = _.clone( state.chatMessages );
+      //Если сообщение новое - добавить в массив. Если нет- вернуть state
+      const index = newChatMessages.findIndex( ( msg ) => msg._id === newMessage._id );
+      if( index === -1 ) {
+        newChatMessages.push( newMessage );
+        return {
+          ...state,
+          chatMessages: newChatMessages,
+        };
       }
+      return { ...state };
+
+    case ACTION_TYPES.SEND_MESSAGE_ERROR:
+      return {
+        ...state,
+        error: action.error
+      };
 
     default:
       return state;
@@ -53,4 +54,4 @@ function chatsReducer( state = initialState, action ) {
 
 }
 
-export default chatsReducer;
+export default chatReducer;

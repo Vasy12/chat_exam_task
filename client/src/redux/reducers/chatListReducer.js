@@ -1,4 +1,5 @@
 import ACTION_TYPES from '../actions/actionTypes.js';
+import _            from "lodash";
 
 const initialState = {
   myChatList: [],
@@ -7,7 +8,7 @@ const initialState = {
   isFetching: false,
 };
 
-function loadUserChatListReducer( state = initialState, action ) {
+function chatListReducer( state = initialState, action ) {
 
   switch ( action.type ) {
     case ACTION_TYPES.LOAD_CHAT_LIST_REQUEST:
@@ -34,9 +35,35 @@ function loadUserChatListReducer( state = initialState, action ) {
         allAvailableChats: action.data
       };
     case ACTION_TYPES.LOAD_ALL_CHATS_ERROR:
-      return{
+      return {
         ...state,
-        error:action.error
+        error: action.error
+      };
+
+    case ACTION_TYPES.JOIN_USER_TO_CHAT_SUCCESS:
+      return {
+        ...state,
+        myChatList:[...state.myChatList,action.data]
+      };
+
+    case ACTION_TYPES.JOIN_USER_TO_CHAT_ERROR:
+      return {
+        ...state,
+        error: action.error
+      };
+
+    case ACTION_TYPES.LEAVE_CHAT_SUCCESS:
+      const newChatList = _.clone( state.myChatList );
+      newChatList.splice( newChatList.findIndex( chat => chat._id === action.data._id ), 1 );
+      return {
+        ...state,
+        myChatList: newChatList
+      };
+
+    case ACTION_TYPES.LEAVE_CHAT_ERROR:
+      return {
+        ...state,
+        error: action.error
       };
 
     default:
@@ -45,4 +72,4 @@ function loadUserChatListReducer( state = initialState, action ) {
 
 }
 
-export default loadUserChatListReducer;
+export default chatListReducer;
