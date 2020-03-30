@@ -1,41 +1,57 @@
-import React                             from 'react';
-import { Field, Form, Formik }           from "formik";
-import { createGetMessageRequestAction } from "../../../redux/actions";
-import { connect }                       from "react-redux";
-import { emitMessage }                   from "../../../api/ws/chatApi";
+import React                            from 'react';
+import { Field, Form, Formik }          from "formik";
+import { connect }                      from "react-redux";
+import { emitMessage }                  from "../../../api/ws/chatApi";
+import { createLeaveChatRequestAction } from "../../../redux/actions";
+import * as Yup                         from 'yup';
 
 const MessageForm = ( props ) => {
   const { currentChat, userId } = props;
 
-  const handleSubmit = ( { message },formikBag ) => {
-    emitMessage( currentChat, message, userId )
+  const messageSchema = Yup.object().shape( {
+    message: Yup.string().min( 1, 'Empty message' ).required( 'EnterMessage' )
+  } );
+
+  const handleSubmit = ( { message }, formikBag ) => {
+    emitMessage( currentChat, message, userId );
     // props.sendMessage( message, currentChat,userId )
-      formikBag.resetForm()
+    formikBag.resetForm()
+  };
+
+  const handleLeave = () => {
+    props.leaveChat( currentChat, userId )
   };
 
   return (
     <Formik onSubmit={handleSubmit}
-
+            validationSchema={messageSchema}
             initialValues={{
               message: ''
             }}>
       {
-        ( {  } ) => (
+        ( {} ) => (
           <Form>
             <Field name={'message'}
                    type={'text'}
                    placeholder={'Type Your Message Here:'}/>
-            <button  type={'submit'}>Send</button>
+
+            <button type={'submit'}>Send</button>
+            <br/>
+            <button onClick={handleLeave}>Leave chat</button>
           </Form>
         )
       }
     </Formik>
   );
 };
-/*
- const mapDispatchToProps = dispatch => ( {
- sendMessage: ( message, chatId,from ) => dispatch( createSendMessageRequestAction( message, chatId,from ) ),
- } );*/
+
+
+const mapDispatchToProps = dispatch => ( {
+  leaveChat: ( currentChat, userId ) => dispatch(
+    createLeaveChatRequestAction( currentChat, userId ) )
+  //sendMessage: ( message, chatId,from ) => dispatch( createSendMessageRequestAction( message, chatId,from ) ),
+} );
+
 
 const mapStateToProps = ( state ) => {
   return {
@@ -44,4 +60,4 @@ const mapStateToProps = ( state ) => {
   }
 };
 
-export default connect( mapStateToProps, /*mapDispatchToProps*/ )( MessageForm );
+export default connect( mapStateToProps, mapDispatchToProps )( MessageForm );
