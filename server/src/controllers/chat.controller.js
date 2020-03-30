@@ -70,8 +70,6 @@ module.exports.joinToChat = async (req, res, next) => {
     try {
         const {headers: {authorization: userId}, chat} = req;
 
-        console.log('joinToChatStart',userId);
-
         chat.users.addToSet(userId);
         const savedChat = await chat.save();
         if (savedChat) {
@@ -99,7 +97,10 @@ module.exports.leaveChat = async (req, res, next) => {
         chat.users.remove(userId);
         const savedChat = await chat.save();
         if (savedChat) {
-            const chatWithOwner = await Chat.findOne(chat)
+            const chatWithOwner = await Chat.findOne(chat,{
+                _id:true,
+                name:true,
+            })
                 .populate('owner', {
                     password: 0,
                 })
