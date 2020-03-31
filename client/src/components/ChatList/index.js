@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styles                         from './ChatList.module.scss'
 import ListItem                       from "../ListItem";
-import { connect }                    from "react-redux";
 import { emitJoinRoom }               from "../../api/ws/chatApi";
-import AvailableChats     from "../AvailableChats";
 import { LIST_ITEM_TYPE } from "../../constants";
 
 

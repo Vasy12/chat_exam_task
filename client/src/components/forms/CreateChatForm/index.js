@@ -1,10 +1,8 @@
 import React                   from 'react';
 import { Field, Form, Formik } from "formik";
 import { connect }             from "react-redux";
-import { emitMessage }         from "../../../api/ws/chatApi";
 import {
-  createChatCreationRequestAction,
-  createLeaveChatRequestAction
+  createChatCreationRequestAction
 }                              from "../../../redux/actions";
 import * as Yup                from 'yup';
 

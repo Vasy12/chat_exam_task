@@ -1,10 +1,10 @@
-import React, { Component, useEffect }                             from 'react';
+import React, { useEffect }                             from 'react';
 import { connect }                                                 from 'react-redux';
 import ListItem                                                    from "../ListItem";
 import styles                                                      from './MessageList.module.scss'
 import MessageForm                                                 from "../forms/MessageForm";
 import { chatSocket }                                              from "../../api/ws";
-import { createGetMessageSuccessAction, createLoginRequestAction } from "../../redux/actions";
+import { createGetMessageSuccessAction} from "../../redux/actions";
 import {LIST_ITEM_TYPE} from "../../constants";
 
 const MessageList = ( props ) => {

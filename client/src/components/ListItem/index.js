@@ -5,8 +5,6 @@ import {
   createJoinUserToChatRequestAction,
   createSelectChatAction
 }                             from "../../redux/actions";
-import { emitJoinRoom }       from "../../api/ws/chatApi";
-import { joinUserToChatById } from "../../api/http/chatController";
 import classNames             from 'classnames';
 import { LIST_ITEM_TYPE }     from '../../constants'
 

@@ -1,7 +1,6 @@
 import React                        from 'react';
 import { connect }                  from 'react-redux';
 import { createLoginRequestAction } from '../../../redux/actions';
-import Input                        from '../Input';
 import { Field, Formik, Form }      from 'formik';
 
 let LoginForm = props => {

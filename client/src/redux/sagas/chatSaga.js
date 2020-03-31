@@ -4,8 +4,6 @@ import {
   createLoadChatMessagesSuccessAction,
   createLoadUserChatListErrorAction,
   createLoadUserChatListSuccessAction,
-  createGetMessageErrorAction,
-  createGetMessageSuccessAction,
   createLoadAllChatSuccess,
   createLoadAllChatError,
   createLeaveChatSuccessAction,
@@ -20,7 +18,6 @@ import {
   getChatMessages,
   getUserChats, joinUserToChatById, leaveChatById
 } from "../../api/http/chatController";
-import { emitMessage } from "../../api/ws/chatApi";
 
 export function* loadUserChatListSaga( { values } ) {
   try {

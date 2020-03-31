@@ -1,5 +1,4 @@
 import React, { lazy, Suspense } from 'react';
-import { Route } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 

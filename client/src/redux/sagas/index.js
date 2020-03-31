@@ -4,7 +4,6 @@ import { loginSaga, signUpSaga } from './authSaga.js';
 import {
   loadChatMessagesSaga,
   loadUserChatListSaga,
-  getMessageSaga,
   loadAllChatsSaga, leaveChatSaga, joinChatSaga, createChatSaga
 } from "./chatSaga";
 
