@@ -3,8 +3,10 @@ import _            from 'lodash';
 
 const initialState = {
   chatMessages: [],
+  chatUsers:[],
   notifications: [],
   currentChat: null,
+  isFetching:false,
   error: null,
 };
 
@@ -20,9 +22,11 @@ function chatReducer( state = initialState, action ) {
       };
 
     case ACTION_TYPES.LOAD_CHAT_MESSAGES_SUCCESS:
+      const{data:{messages,users}}=action;
       return {
         ...state,
-        chatMessages: action.data,
+        chatMessages: messages,
+        chatUsers: users,
       };
 
     case ACTION_TYPES.LOAD_CHAT_MESSAGES_ERROR:
@@ -33,9 +37,11 @@ function chatReducer( state = initialState, action ) {
 
     case ACTION_TYPES.SEND_MESSAGE_SUCCESS:
       const newMessage = action.data;
+
       const newChatMessages = _.clone( state.chatMessages );
       //Если сообщение новое - добавить в массив. Если нет- вернуть state
       const index = newChatMessages.findIndex( ( msg ) => msg._id === newMessage._id );
+
       if( index === -1 ) {
         newChatMessages.push( newMessage );
         return {
@@ -43,6 +49,7 @@ function chatReducer( state = initialState, action ) {
           chatMessages: newChatMessages,
         };
       }
+
       return { ...state };
 
     case ACTION_TYPES.SEND_MESSAGE_ERROR:

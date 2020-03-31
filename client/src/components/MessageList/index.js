@@ -5,6 +5,7 @@ import styles                                                      from './Messa
 import MessageForm                                                 from "../forms/MessageForm";
 import { chatSocket }                                              from "../../api/ws";
 import { createGetMessageSuccessAction, createLoginRequestAction } from "../../redux/actions";
+import {LIST_ITEM_TYPE} from "../../constants";
 
 const MessageList = ( props ) => {
 
@@ -15,13 +16,26 @@ const MessageList = ( props ) => {
   } );
 
 
-  const { chatMessages, currentChat } = props;
+  const { chatMessages, currentChat, chatUsers } = props;
+
+  (function addUserLoginToMessage(){
+      return chatMessages.map((msg)=>{
+          for(let user of chatUsers){
+              if(msg.authorId===user.id){
+                  console.log(user)
+                 return msg.userLogin= user.login
+              }
+          }
+      })
+  })();
+
 
   const chatIsSelected = () => {
     return chatMessages.map( ( msg ) => ( <ListItem key={msg._id}
-                                                    name={msg.authorId}
+                                                    name={msg.userLogin}
                                                     id={msg._id}
                                                     body={msg.body}
+                                                    type={LIST_ITEM_TYPE.MESSAGE_LIST}
                                                     updatedAt={msg.updatedAt}
                                                     chatItemClassName={styles.messageItem}/> ) )
   };

@@ -138,10 +138,13 @@ module.exports.createMessage = async (req, res, next) => {
 
 module.exports.getMessages = async (req, res, next) => {
     try {
-        const {chat: {messages}} = req;
+        const {chat: {messages,users},chat} = req;
 
-        if (messages) {
-            return res.status(200).send(messages)
+        if (chat) {
+            return res.status(200).send({
+                messages,
+                users
+            })
         }
         res.send('Chat not found or there is no message');
     } catch (e) {

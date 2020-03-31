@@ -20,6 +20,12 @@ const ListItem = ( props ) => {
     name, body, id, updatedAt
   } = props;
 
+  useEffect( () => {
+    if( type === LIST_ITEM_TYPE.NOTIFICATION && id) {
+      setTimeout( () => {props.deleteNotification( id )}, 3000 )
+    }
+  }, [] );
+
   const computedStyles = classNames( chatItemClassName, {
     [ selectedChatStyles ]: currentChat === id,
   } );
@@ -37,11 +43,6 @@ const ListItem = ( props ) => {
     }
   };
 
-  useEffect( () => {
-    if( type === LIST_ITEM_TYPE.NOTIFICATION && id) {
-      setTimeout( () => {props.deleteNotification( id )}, 3000 )
-    }
-  }, [] );
 
 
   return (
